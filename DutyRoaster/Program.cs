@@ -58,6 +58,7 @@ builder.Services.AddAuthorization();
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<CommonService>();
 
 var app = builder.Build();
 
