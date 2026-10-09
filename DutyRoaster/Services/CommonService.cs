@@ -13,12 +13,17 @@ namespace DutyRoaster.Services
             _configuration = configuration;
         }
 
+        public SqlConnection GetConnection()
+        {
+            return new SqlConnection(
+                _configuration.GetConnectionString("DefaultConnection"));
+        }
+
         public async Task<List<DropdownDto>> GetCompaniesAsync()
         {
             var list = new List<DropdownDto>();
 
-            using var connection = new SqlConnection(
-                _configuration.GetConnectionString("DefaultConnection"));
+            using var connection = GetConnection();
 
             using var command = new SqlCommand(
                 "CompanyInfo_GetInfo",
@@ -46,8 +51,7 @@ namespace DutyRoaster.Services
         {
             var list = new List<DropdownDto>();
 
-            using var connection = new SqlConnection(
-                _configuration.GetConnectionString("DefaultConnection"));
+            using var connection = GetConnection();
 
             using var command = new SqlCommand(
                 "Branch_GetByCompanyGUID",
